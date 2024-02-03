@@ -1,0 +1,43 @@
+<div class="step-text">
+<p></p><h5 id="description">Description</h5><p>MongoDB is a well-known document database that is made easy to use in your projects, thanks to excellent support from Spring Data.</p><p>MongoDB stores data as JSON documents, which are grouped into collections. You can use Spring Data annotations to map Java classes to these JSON documents. To gain insights, check out this official <a href="https://spring.io/guides/gs/accessing-data-mongodb/" rel="noopener noreferrer nofollow" target="_blank">Spring tutorial</a>.</p><p></p><div class="alert alert-warning"><p>This project requires Docker on your machine to be able to create and start MongoDB containers. If you haven't installed Docker yet, follow <a href="https://docs.docker.com/engine/install/" rel="noopener noreferrer nofollow" target="_blank">these official instructions</a> suitable for your operating system. This project uses the <code class="language-java">mongo:5 </code>Docker image; thus, you can pull it ahead of time to speed up the application's initial start.</p></div><p></p><p>To make a MongoDB container run upon the application startup and stop upon the application shutdown, you can add this component to the project:</p><pre><code class="language-java">@Component
+class MongoContainerProvider {
+    private final MongoDBContainer container;
+
+    public MongoContainerProvider() String mongodbImage) {
+        container = new MongoDBContainer("mongo:5"); // image name
+        container.withCreateContainerCmdModifier(cmd -&gt; cmd.withName("feedback-service")); // container name
+        container.addEnv("MONGO_INITDB_DATABASE", "feedback_db"); // init database
+        container.setPortBindings(List.of("27017:27017")); // expose port 27017
+        container.start();
+    }
+
+    @PreDestroy
+    public void tearDown() {
+        container.stop();
+    }
+}</code></pre><p>When the application is started, you can access the running container through the command line or a GUI MongoDB client such as Compass.</p><p style="text-align: start;">To access MongoDB via Compass, use the following connection string: <code class="language-java">mongodb://localhost:27017/?directConnection=true</code>.</p><p style="text-align: start;">Accessing MongoDB via the command line is also straightforward. Start the mongo shell by typing and executing the following command: </p><pre><code class="language-no-highlight">docker exec -it feedback-service mongosh</code></pre><p style="text-align: start;">When you stop the application, it automatically shuts down and removes the MongoDB container as well.</p><p>To include MongoDB support in your project, add the <code class="language-java">spring-boot-starter-data-mongodb</code> starter to the project build file. In this project, the starter is already added, so you don't need to do anything. It's recommended for you to use <code class="language-java">MongoRepository</code> to manipulate entities in this project.</p><p style="text-align: start;">Don't forget to configure the <code class="language-java">application.properties</code> for Spring Data:</p><pre><code class="language-no-highlight">spring.data.mongodb.host=localhost
+spring.data.mongodb.port=27017
+spring.data.mongodb.database=feedback_db</code></pre><p style="text-align: start;">In this stage, you will ensure the service receives customer feedback data via the REST controller, then save this data in the database. Store all documents in a single collection named <code class="language-java">"feedback"</code>. You can do this by specifying the collection's name in your entity's <code class="language-java">@Document </code>annotation:</p><pre><code class="language-java">@Document(collection = "feedback")
+public class MyEntity {
+    @Id
+    private String id;
+    // other fields
+}</code></pre><h5 id="objectives">Objectives</h5><ul><li><p>Create a <code class="language-java">POST /feedback</code> endpoint that accepts requests with JSON bodies in the following format:</p><pre><code class="language-json">{
+  "rating": &lt;integer&gt;,
+  "feedback": &lt;string, optional&gt;,
+  "customer": &lt;string, optional&gt;,
+  "product": &lt;string&gt;,
+  "vendor": &lt;string&gt;
+}</code></pre><p>Here, <code class="language-java">rating</code> is the number of "stars", from 1 to 5, assigned by the customer to a product, <code class="language-java">feedback</code> is an optional customer message related to the rating, <code class="language-java">customer</code> is the customer's name (if agreed to disclose), <code class="language-java">product</code> is the rated product's name, and <code class="language-java">vendor</code> is the product vendor's name. Both <code class="language-java">feedback</code> and <code class="language-java">customer</code> fields are optional and may not appear in the request body.
+The endpoint should respond with the status code <code class="language-java">201 CREATED</code>, and the <code class="language-java">Location</code> header should contain the URL of the new document:</p><pre><code class="language-no-highlight">Location: /feedback/&lt;id&gt;</code></pre><p>Use the <code class="language-java">ObjectId</code> string representation as the document's id.</p></li><li><p>Save all received feedback data as MongoDB documents in the <code class="language-java">"feedback"</code> collection in the database. You are free to choose any structure for the documents, as long as each uploaded data item is saved as a single document.</p></li></ul><h5 id="examples">Examples</h5><p><strong>Example 1</strong>: <code class="language-java">POST</code> request to the <code class="language-java">/feedback</code> endpoint.</p><p><em>Request body</em>:</p><pre><code class="language-json">{
+  "rating": 4,
+  "feedback": "good but expensive",
+  "customer": "John Doe",
+  "product": "MacBook Air",
+  "vendor": "Online Trade LLC"
+}</code></pre><p><em>Response code:</em> <code class="language-java">201 CREATED</code></p><p><em>Response header</em>:</p><pre><code class="language-no-highlight">Location: /feedback/655e0c5f76a1e10ce2159b88</code></pre><p><strong>Example 2</strong>: <code class="language-java">POST</code> request to the <code class="language-java">/feedback</code> endpoint.</p><p><em>Request body</em>:</p><pre><code class="language-json">{
+  "rating": 4,
+  "product": "Blue duct tape",
+  "vendor": "99 Cents &amp; Co."
+}</code></pre><p><em>Response code:</em> <code class="language-java">201 CREATED</code></p><p><em>Response header</em>:</p><pre><code class="language-no-highlight">Location: /feedback/655e0c5f76a1e10ce2159b89</code></pre>
+</div>

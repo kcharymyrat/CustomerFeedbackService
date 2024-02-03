@@ -1,0 +1,51 @@
+<div class="step-text">
+<h5 id="description">Description</h5><p>Even though getting paged results is good, sometimes it becomes a rather long task to browse through multiple pages to find the documents you need. To make this task easier, you can apply filtration based on certain criteria, and then sort and paginate the refined collection.</p><p>This stage involves modifying the <code class="language-json">GET /feedback</code> endpoint by adding a filter. This filter allows clients to apply a combination of several constraints and then retrieve a page of content from the filtered document set.</p><p>If using <code class="language-json">MongoRepository</code>, filtering a collection isn't a challenging task. <code class="language-json">MongoRepository</code> extends the <code class="language-json">QueryByExampleExecutor</code> interface, allowing you to create a probe that serves as an <code class="language-json">Example</code> for filtering documents. The <code class="language-json">findAll</code> method can accept both an <code class="language-json">Example</code> and a <code class="language-json">Pageable</code> object, making filtering, sorting, and pagination a single-step process.</p><p>The <a href="https://docs.spring.io/spring-data/relational/reference/query-by-example.html" rel="noopener noreferrer nofollow" target="_blank">Spring documentation</a> provides a detailed explanation on how to use Query by Example with a relational database. This approach, however, can also be applied to <code class="language-json">MongoRepository</code>.</p><h5 id="objectives">Objectives</h5><ul><li><p>Update the <code class="language-json">GET /feedback</code> endpoint, so that alongside the pagination functionality, it could also accept optional filter parameters. These filters will filter the document collection based on <code class="language-json">rating</code>, <code class="language-json">customer</code>, <code class="language-json">product</code>, and <code class="language-json">vendor</code> parameters and should work in any combination with the <code class="language-json">page</code> and <code class="language-json">perPage</code> parameters.</p></li><li><p>The <code class="language-json">GET /feedback</code> endpoint should return only those documents that match the provided parameters for the corresponding fields. For instance, if the request made is: <code class="language-json">GET /feedback?rating=5&amp;product=blue+duct+tape&amp;vendor=Total+Sales</code>, the endpoint should only return documents related to the product <code class="language-json">"blue duct tape"</code>, with the <code class="language-json">rating</code> as <code class="language-json">5</code> and <code class="language-json">vendor</code> as <code class="language-json">"Total Sales"</code>.</p></li><li><p>Sorting and paging settings should be applied as in the previous stages, provided that now the total number of documents and the position of the requested page should be calculated for the filtered collection of documents.</p></li></ul><h5 id="examples">Examples</h5><p><strong>Example 1</strong>: Sending a <code class="language-json">GET</code> request to the <code class="language-json">/feedback</code> endpoint.</p><p><em>Response code:</em><code class="language-json">200 OK</code></p><p><em>Response body:</em></p><pre><code class="language-json">{
+  "total_documents": 3,
+  "is_first_page": true,
+  "is_last_page": true,
+  "documents": [
+    {
+      "id": "655e0c5f76a1e10ce2159b89",
+      "rating": 5,
+      "feedback": null,
+      "customer": null,
+      "product": "Blue duct tape",
+      "vendor": "99 Cents &amp; Co."
+    },
+    {
+      "id": "655e0c5f76a1e10ce2159b88",
+      "rating": 4,
+      "feedback": "good but expensive",
+      "customer": "John Doe",
+      "product": "MacBook Air",
+      "vendor": "Online Trade LLC"
+    },
+    {
+      "id": "655e0c5f76a1e10ce2159b87",
+      "rating": 5,
+      "feedback": null,
+      "customer": John Doe,
+      "product": "Blue duct tape",
+      "vendor": "99 Cents &amp; Co."
+    },
+  ]
+}</code></pre><p><strong>Example 2</strong>: Sending a <code class="language-json">GET</code> request to <code class="language-json">/feedback?page=1&amp;perPage=5&amp;customer=John+Doe&amp;rating=5</code> endpoint.</p><p><em>Response code:</em><code class="language-json">200 OK</code></p><p><em>Response body:</em></p><pre><code class="language-json">{
+  "total_documents": 1,
+  "is_first_page": true,
+  "is_last_page": true,
+  "documents": [
+      "id": "655e0c5f76a1e10ce2159b87",
+      "rating": 5,
+      "feedback": null,
+      "customer": John Doe,
+      "product": "Blue duct tape",
+      "vendor": "99 Cents &amp; Co."
+    }
+  ]
+}</code></pre><p><strong>Example 3</strong>: Making a <code class="language-json">GET</code> request to the <code class="language-json">/feedback?page=1&amp;perPage=5&amp;customer=John+Doe&amp;rating=5&amp;product=Blue+duct+tape</code> endpoint.</p><p><em>Response code:</em><code class="language-json">200 OK</code></p><p><em>Response body:</em></p><pre><code class="language-json">{
+  "total_documents": 0,
+  "is_first_page": true,
+  "is_last_page": true,
+  "documents": []
+}</code></pre>
+</div>

@@ -1,0 +1,62 @@
+<div class="step-text">
+<h5 id="description">Description</h5><p>The service can already store customer feedback. Now, you need to add functionality to fetch and display stored documents. Earlier, you made the service return the URL of each created document. Now, you should create an endpoint that will accept such a URL and return the related document. Moreover, you will create a separate endpoint for fetching all stored documents.</p><p>To reach these goals, <code class="language-json">MongoRepository</code> offers two methods, <code class="language-json">findById</code> and <code class="language-json">findAll</code>. The latter has an overloaded version that accepts a <code class="language-json">Sort</code> object to arrange the queried collection.</p><h5 id="objectives">Objectives</h5><ul><li><p>Build a <code class="language-json">GET /feedback/&lt;id&gt;</code> endpoint that will return the requested feedback document by its ID. This endpoint matches the document's URL you return from the <code class="language-json">POST /feedback</code> endpoint. If the provided id is correct, this endpoint should respond with the status code <code class="language-json">200 OK</code> and a JSON response body in the following format:</p><pre><code class="language-json">{
+  "id": &lt;string&gt;,
+  "rating": &lt;integer&gt;,
+  "feedback": &lt;string | null&gt;,
+  "customer": &lt;string | null&gt;,
+  "product": &lt;string&gt;,
+  "vendor": &lt;string&gt;
+}</code></pre><p>If the <code class="language-json">feedback</code> and/or <code class="language-json">customer</code> fields are not in the document, they should show as <code class="language-json">null</code> in the response body. If no document matches the provided <code class="language-json">id</code>, the endpoint should respond with the status code <code class="language-json">404 NOT FOUND</code>.</p></li><li><p>Build a <code class="language-json">GET /feedback</code> endpoint that will return a JSON array of all saved documents, arranged by their <code class="language-json">ObjectId</code> in descending order. This endpoint should always respond with the status code <code class="language-json">200 OK</code> and a JSON array as the response body:</p><pre><code class="language-json">[
+  {
+    "id": &lt;string&gt;,
+    "rating": &lt;integer&gt;,
+    "feedback": &lt;string | null&gt;,
+    "customer": &lt;string | null&gt;,
+    "product": &lt;string&gt;,
+    "vendor": &lt;string&gt;
+  },
+  {
+    "id": &lt;string&gt;,
+    "rating": &lt;integer&gt;,
+    "feedback": &lt;string | null&gt;,
+    "customer": &lt;string | null&gt;,
+    "product": &lt;string&gt;,
+    "vendor": &lt;string&gt;
+  },
+  ...
+]</code></pre><p>If the <code class="language-json">feedback</code> collection contains no documents, this endpoint should return an empty JSON array.</p></li></ul><h5 id="examples">Examples</h5><p><strong>Example 1</strong>: <code class="language-json">POST</code> request to the <code class="language-json">/feedback</code> endpoint.</p><p><em>Request body</em>:</p><pre><code class="language-json">{
+  "rating": 4,
+  "feedback": "good but expensive",
+  "customer": "John Doe",
+  "product": "MacBook Air",
+  "vendor": "Online Trade LLC"
+}</code></pre><p><em>Response code:</em> <code class="language-json">201 CREATED</code></p><p><em>Response header</em>:</p><pre><code class="language-no-highlight">Location: /feedback/655e0c5f76a1e10ce2159b88</code></pre><p><strong>Example 2</strong>: <code class="language-json">POST</code> request to the <code class="language-json">/feedback</code> endpoint.</p><p><em>Request body</em>:</p><pre><code class="language-json">{
+  "rating": 4,
+  "product": "Blue duct tape",
+  "vendor": "99 Cents &amp; Co."
+}</code></pre><p><em>Response code:</em> <code class="language-json">201 CREATED</code></p><p><em>Response header</em>:</p><pre><code class="language-no-highlight">Location: /feedback/655e0c5f76a1e10ce2159b89</code></pre><p><strong>Example 3</strong>: <code class="language-json">GET</code> request to the <code class="language-json">/feedback/655e0c5f76a1e10ce2159b88</code> endpoint.</p><p><em>Response code:</em> <code class="language-json">200 OK</code></p><p><em>Response body</em>:</p><pre><code class="language-json">{
+  "id": "655e0c5f76a1e10ce2159b88",
+  "rating": 4,
+  "feedback": "good but expensive",
+  "customer": "John Doe",
+  "product": "MacBook Air",
+  "vendor": "Online Trade LLC"
+}</code></pre><p><strong>Example 4</strong>: <code class="language-json">GET</code> request to the <code class="language-json">/feedback/655e0c5f76a1e10ce2159b90</code> endpoint.</p><p><em>Response code:</em> <code class="language-json">404 NOT FOUND</code></p><p><strong>Example 5</strong>: <code class="language-json">GET</code> request to the <code class="language-json">/feedback</code> endpoint.</p><p><em>Response code:</em> <code class="language-json">200 OK</code></p><p><em>Response body</em>:</p><pre><code class="language-json">[
+  {
+    "id": "655e0c5f76a1e10ce2159b89",
+    "rating": 4,
+    "feedback": null,
+    "customer": null,
+    "product": "Blue duct tape",
+    "vendor": "99 Cents &amp; Co."
+  },
+  {
+    "id": "655e0c5f76a1e10ce2159b88",
+    "rating": 4,
+    "feedback": "good but expensive",
+    "customer": "John Doe",
+    "product": "MacBook Air",
+    "vendor": "Online Trade LLC"
+  }
+]</code></pre>
+</div>

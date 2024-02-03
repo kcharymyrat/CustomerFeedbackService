@@ -1,0 +1,69 @@
+<div class="step-text">
+<h5 id="description">Description</h5><p>After collecting feedback from customers for some time, we've noticed a considerable increase in the number of documents. Retrieving all documents at once is not practical anymore due to the high traffic and memory utilization.</p><p>At this stage, you'll implement paging, allowing a client to request a particular portion of the document collection by specifying the desired page and page size.</p><p><code class="language-json">MongoRepository</code> extends the <code class="language-json">PagingAndSortingRepository</code> repository. This implies that the overloaded <code class="language-json">findAll</code> method can accept a <code class="language-json">Pageable</code> object, which facilitates the simultaneous application of sorting and paging. This method gives back a <code class="language-json">Page&lt;T&gt;</code> object carrying all the necessary information for clients to move between pages.</p><h5 id="objectives">Objectives</h5><ul><li><p>Alter the <code class="language-json">GET /feedback</code> endpoint. It should now support paging and accept optional <code class="language-json">page</code> and <code class="language-json">perPage</code> request parameters, with default values of 1 and 10 respectively. The <code class="language-json">page</code> parameter signifies the requested page of data and the <code class="language-json">perPage</code>  parameter defines the number of documents per page. If either or both of these parameters are absent, apply their default values. The documents must still be sorted by their IDs in descending order before pagination.</p></li><li><p>Validate and sanitize the <code class="language-json">page</code> request parameter to ensure that only valid pagination settings are applied. Page numbering starts with 1, which means that if the given <code class="language-json">page</code> value is less than 1, the first page should be returned.</p></li><li><p>Validate and sanitize the <code class="language-json">perPage</code> request parameter to ensure that only valid pagination settings are applied. The minimum allowed <code class="language-json">perPage</code> value is 5 and the maximum is 20. This implies that if the provided <code class="language-json">perPage</code> value is less than 5 or more than 20, the default page size of 10 should be applied.</p></li><li><p>Change the response body of the <code class="language-json">GET /feedback</code> endpoint. It should now be a JSON object with the following fields:</p><pre><code class="language-json">{
+  "total_documents": &lt;long&gt;,
+  "is_first_page": &lt;boolean&gt;,
+  "is_last_page": &lt;boolean&gt;,
+  "documents": &lt;[array of documents]&gt;
+}</code></pre><p>Where <code class="language-json">total_documents</code> is the total count of documents in the collection, <code class="language-json">is_first_page</code> depicts whether the returned page is the first one, <code class="language-json">is_last_page</code> indicates if the returned page is the final one, and <code class="language-json">documents</code> is a JSON array of JSON objects representing feedback documents in the same format as in the previous stage:</p><pre><code class="language-json">{
+  "id": &lt;string&gt;,
+  "rating": &lt;integer&gt;,
+  "feedback": &lt;string | null&gt;,
+  "customer": &lt;string | null&gt;,
+  "product": &lt;string&gt;,
+  "vendor": &lt;string&gt;
+}</code></pre></li><li><p>If the requested page number is greater than the maximum available page number, the document array should be empty.</p></li></ul><h5 id="examples">Examples</h5><p><strong>Example 1</strong>: <code class="language-json">POST</code> request to the <code class="language-json">/feedback</code> endpoint.</p><p><em>Request body</em>:</p><pre><code class="language-json">{
+  "rating": 4,
+  "feedback": "good but expensive",
+  "customer": "John Doe",
+  "product": "MacBook Air",
+  "vendor": "Online Trade LLC"
+}</code></pre><p><em>Response code:</em> <code class="language-json">201 CREATED</code></p><p><em>Response header</em>:</p><pre><code class="language-no-highlight">Location: /feedback/655e0c5f76a1e10ce2159b88</code></pre><p><strong>Example 2</strong>: <code class="language-json">POST</code> request to the <code class="language-json">/feedback</code> endpoint.</p><p><em>Request body</em>:</p><pre><code class="language-json">{
+  "rating": 4,
+  "product": "Blue duct tape",
+  "vendor": "99 Cents &amp; Co."
+}</code></pre><p><em>Response code:</em> <code class="language-json">201 CREATED</code></p><p><em>Response header</em>:</p><pre><code class="language-no-highlight">Location: /feedback/655e0c5f76a1e10ce2159b89</code></pre><p><strong>Example 3</strong>: <code class="language-json">GET</code> request to the <code class="language-json">/feedback</code> endpoint.</p><p><em>Response code:</em> <code class="language-json">200 OK</code></p><p><em>Response body</em>:</p><pre><code class="language-json">{
+  "total_documents": 2,
+  "is_first_page": true,
+  "is_last_page": true,
+  "documents": [
+    {
+      "id": "655e0c5f76a1e10ce2159b89",
+      "rating": 4,
+      "feedback": null,
+      "customer": null,
+      "product": "Blue duct tape",
+      "vendor": "99 Cents &amp; Co."
+    },
+    {
+      "id": "655e0c5f76a1e10ce2159b88",
+      "rating": 4,
+      "feedback": "good but expensive",
+      "customer": "John Doe",
+      "product": "MacBook Air",
+      "vendor": "Online Trade LLC"
+    }
+  ]
+}</code></pre><p><strong>Example 4</strong>: <code class="language-json">GET</code> request to the <code class="language-json">/feedback?page=2&amp;perPage=3</code> endpoint.</p><p><em>Response code:</em> <code class="language-json">200 OK</code></p><p><em>Response body</em>:</p><pre><code class="language-json">{
+  "total_documents": 2,
+  "is_first_page": true,
+  "is_last_page": true,
+  "documents": [
+    {
+      "id": "655e0c5f76a1e10ce2159b89",
+      "rating": 4,
+      "feedback": null,
+      "customer": null,
+      "product": "Blue duct tape",
+      "vendor": "99 Cents &amp; Co."
+    },
+    {
+      "id": "655e0c5f76a1e10ce2159b88",
+      "rating": 4,
+      "feedback": "good but expensive",
+      "customer": "John Doe",
+      "product": "MacBook Air",
+      "vendor": "Online Trade LLC"
+    }
+  ]
+}</code></pre>
+</div>
