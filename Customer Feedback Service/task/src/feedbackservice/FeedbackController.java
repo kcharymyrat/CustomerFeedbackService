@@ -1,10 +1,7 @@
 package feedbackservice;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -47,7 +44,15 @@ public class FeedbackController {
         Sort sort = Sort.by(Sort.Order.desc("id"));
         Pageable pageable = PageRequest.of(page - 1, perPage, sort);
 
-        Page<Feedback> feedbackPage = repository.findAll(pageable);
+        Feedback probe = new Feedback();
+        if (rating != null) probe.setRating(rating);
+        if (customer != null) probe.setCustomer(customer);
+        if (product != null) probe.setProduct(product);
+        if (vendor != null) probe.setVendor(vendor);
+
+        Example<Feedback> example = Example.of(probe);
+
+        Page<Feedback> feedbackPage = repository.findAll(example, pageable);
         FeedbackPaginatedResponse response = new FeedbackPaginatedResponse(
                 feedbackPage.getTotalElements(),
                 feedbackPage.isFirst(),
