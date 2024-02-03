@@ -1,12 +1,139 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="FeedbackServiceTests" tests="1" skipped="0" failures="1" errors="0" timestamp="2024-02-03T05:05:37" hostname="WIN-PK97IO7J39D" time="44.312">
+<testsuite name="FeedbackServiceTests" tests="1" skipped="0" failures="1" errors="0" timestamp="2024-02-03T18:29:58" hostname="WIN-PK97IO7J39D" time="39.465">
   <properties/>
-  <testcase name="start" classname="FeedbackServiceTests" time="44.312">
-    <failure message="java.lang.AssertionError: Wrong answer in test #2&#10;&#10;Request: GET /feedback/65bdc9cd7abbc15b50df5365&#10;Request body: &#10;Expected response status code 200 but received 404" type="java.lang.AssertionError">java.lang.AssertionError: Wrong answer in test #2
+  <testcase name="start" classname="FeedbackServiceTests" time="39.465">
+    <failure message="java.lang.AssertionError: Wrong answer in test #17&#10;&#10;The JSON object at key total_documents should equal to 4, found 51&#10;&#10;Full JSON:&#10;{&#10;  &quot;total_documents&quot;: 51,&#10;  &quot;is_first_page&quot;: false,&#10;  &quot;is_last_page&quot;: false,&#10;  &quot;documents&quot;: [&#10;    {&#10;      &quot;id&quot;: &quot;65be864c96f78f5d6d84ac8b&quot;,&#10;      &quot;rating&quot;: 4,&#10;      &quot;feedback&quot;: &quot;Consectetur adipiscing elit.&quot;,&#10;      &quot;customer&quot;: &quot;Elizabeth Garcia&quot;,&#10;      &quot;product&quot;: &quot;Samsung 55\&quot; Class QLED Q80A Series - 4K UHD TV&quot;,&#10;      &quot;vendor&quot;: &quot;BlueSky Electronics&quot;&#10;    },&#10;    {&#10;      &quot;id&quot;: &quot;65be864c96f78f5d6d84ac8a&quot;,&#10;      &quot;rating&quot;: 4,&#10;      &quot;feedback&quot;: null,&#10;      &quot;customer&quot;: &quot;Jane Smith&quot;,&#10;      &quot;product&quot;: &quot;Amazon Echo Dot (4th Generation)&quot;,&#10;      &quot;vendor&quot;: &quot;Nebula Network Devices&quot;&#10;    },&#10;    {&#10;      &quot;id&quot;: &quot;65be864c96f78f5d6d84ac89&quot;,&#10;      &quot;rating&quot;: 2,&#10;      &quot;feedback&quot;: &quot;Duis aute irure dolor.&quot;,&#10;      &quot;customer&quot;: &quot;Michael Miller&quot;,&#10;      &quot;product&quot;: &quot;Microsoft Xbox Series X&quot;,&#10;      &quot;vendor&quot;: &quot;Pinnacle Home Appliances&quot;&#10;    },&#10;    {&#10;      &quot;id&quot;: &quot;65be864c96f78f5d6d84ac88&quot;,&#10;      &quot;rating&quot;: 1,&#10;      &quot;feedback&quot;: &quot;In reprehenderit in voluptate velit.&quot;,&#10;      &quot;customer&quot;: &quot;Jane Smith&quot;,&#10;      &quot;product&quot;: &quot;Apple MacBook Pro (16 inch, M1 Pro)&quot;,&#10;      &quot;vendor&quot;: &quot;BlueSky Electronics&quot;&#10;    },&#10;    {&#10;      &quot;id&quot;: &quot;65be864c96f78f5d6d84ac87&quot;,&#10;      &quot;rating&quot;: 1,&#10;      &quot;feedback&quot;: &quot;Consectetur adipiscing elit.&quot;,&#10;      &quot;customer&quot;: null,&#10;      &quot;product&quot;: &quot;Dyson V11 Torque Drive Cordless Vacuum Cleaner&quot;,&#10;      &quot;vendor&quot;: &quot;Nebula Network Devices&quot;&#10;    },&#10;    {&#10;      &quot;id&quot;: &quot;65be864c96f78f5d6d84ac86&quot;,&#10;      &quot;rating&quot;: 3,&#10;      &quot;feedback&quot;: null,&#10;      &quot;customer&quot;: &quot;William Martinez&quot;,&#10;      &quot;product&quot;: &quot;Samsung Galaxy S21&quot;,&#10;      &quot;vendor&quot;: &quot;BlueSky Electronics&quot;&#10;    },&#10;    {&#10;      &quot;id&quot;: &quot;65be864c96f78f5d6d84ac85&quot;,&#10;      &quot;rating&quot;: 2,&#10;      &quot;feedback&quot;: &quot;Duis aute irure dolor.&quot;,&#10;      &quot;customer&quot;: null,&#10;      &quot;product&quot;: &quot;Samsung Galaxy S21&quot;,&#10;      &quot;vendor&quot;: &quot;TerraFirma Outdoor Gear&quot;&#10;    },&#10;    {&#10;      &quot;id&quot;: &quot;65be864c96f78f5d6d84ac84&quot;,&#10;      &quot;rating&quot;: 5,&#10;      &quot;feedback&quot;: &quot;Duis aute irure dolor.&quot;,&#10;      &quot;customer&quot;: null,&#10;      &quot;product&quot;: &quot;Amazon Echo Dot (4th Generation)&quot;,&#10;      &quot;vendor&quot;: &quot;Quantum Computing Solutions&quot;&#10;    },&#10;    {&#10;      &quot;id&quot;: &quot;65be864c96f78f5d6d84ac83&quot;,&#10;      &quot;rating&quot;: 2,&#10;      &quot;feedback&quot;: &quot;In reprehenderit in voluptate velit.&quot;,&#10;      &quot;customer&quot;: null,&#10;      &quot;product&quot;: &quot;Microsoft Xbox Series X&quot;,&#10;      &quot;vendor&quot;: &quot;Pinnacle Home Appliances&quot;&#10;    },&#10;    {&#10;      &quot;id&quot;: &quot;65be864c96f78f5d6d84ac82&quot;,&#10;      &quot;rating&quot;: 2,&#10;      &quot;feedback&quot;: &quot;In reprehenderit in voluptate velit.&quot;,&#10;      &quot;customer&quot;: &quot;Robert Brown&quot;,&#10;      &quot;product&quot;: &quot;Samsung Galaxy S21&quot;,&#10;      &quot;vendor&quot;: &quot;Pinnacle Home Appliances&quot;&#10;    },&#10;    {&#10;      &quot;id&quot;: &quot;65be864c96f78f5d6d84ac81&quot;,&#10;      &quot;rating&quot;: 1,&#10;      &quot;feedback&quot;: null,&#10;      &quot;customer&quot;: null,&#10;      &quot;product&quot;: &quot;Bose QuietComfort 35 II Headphones&quot;,&#10;      &quot;vendor&quot;: &quot;Nebula Network Devices&quot;&#10;    },&#10;    {&#10;      &quot;id&quot;: &quot;65be864c96f78f5d6d84ac80&quot;,&#10;      &quot;rating&quot;: 3,&#10;      &quot;feedback&quot;: &quot;Nulla pariatur excepteur sint occaecat.&quot;,&#10;      &quot;customer&quot;: &quot;Jane Smith&quot;,&#10;      &quot;product&quot;: &quot;Samsung 55\&quot; Class QLED Q80A Series - 4K UHD TV&quot;,&#10;      &quot;vendor&quot;: &quot;BlueSky Electronics&quot;&#10;    },&#10;    {&#10;      &quot;id&quot;: &quot;65be864c96f78f5d6d84ac7f&quot;,&#10;      &quot;rating&quot;: 4,&#10;      &quot;feedback&quot;: &quot;Nulla pariatur excepteur sint occaecat.&quot;,&#10;      &quot;customer&quot;: &quot;Michael Miller&quot;,&#10;      &quot;product&quot;: &quot;Microsoft Xbox Series X&quot;,&#10;      &quot;vendor&quot;: &quot;Quantum Computing Solutions&quot;&#10;    },&#10;    {&#10;      &quot;id&quot;: &quot;65be864c96f78f5d6d84ac7e&quot;,&#10;      &quot;rating&quot;: 5,&#10;      &quot;feedback&quot;: &quot;Lorem ipsum dolor sit amet.&quot;,&#10;      &quot;customer&quot;: &quot;Robert Brown&quot;,&#10;      &quot;product&quot;: &quot;Apple iPhone 13&quot;,&#10;      &quot;vendor&quot;: &quot;Quantum Computing Solutions&quot;&#10;    },&#10;    {&#10;      &quot;id&quot;: &quot;65be864c96f78f5d6d84ac7d&quot;,&#10;      &quot;rating&quot;: 1,&#10;      &quot;feedback&quot;: &quot;Consectetur adipiscing elit.&quot;,&#10;      &quot;customer&quot;: &quot;Patricia Davis&quot;,&#10;      &quot;product&quot;: &quot;Apple iPhone 13&quot;,&#10;      &quot;vendor&quot;: &quot;Quantum Computing Solutions&quot;&#10;    }&#10;  ]&#10;}" type="java.lang.AssertionError">java.lang.AssertionError: Wrong answer in test #17
 
-Request: GET /feedback/65bdc9cd7abbc15b50df5365
-Request body: 
-Expected response status code 200 but received 404
+The JSON object at key total_documents should equal to 4, found 51
+
+Full JSON:
+{
+  &quot;total_documents&quot;: 51,
+  &quot;is_first_page&quot;: false,
+  &quot;is_last_page&quot;: false,
+  &quot;documents&quot;: [
+    {
+      &quot;id&quot;: &quot;65be864c96f78f5d6d84ac8b&quot;,
+      &quot;rating&quot;: 4,
+      &quot;feedback&quot;: &quot;Consectetur adipiscing elit.&quot;,
+      &quot;customer&quot;: &quot;Elizabeth Garcia&quot;,
+      &quot;product&quot;: &quot;Samsung 55\&quot; Class QLED Q80A Series - 4K UHD TV&quot;,
+      &quot;vendor&quot;: &quot;BlueSky Electronics&quot;
+    },
+    {
+      &quot;id&quot;: &quot;65be864c96f78f5d6d84ac8a&quot;,
+      &quot;rating&quot;: 4,
+      &quot;feedback&quot;: null,
+      &quot;customer&quot;: &quot;Jane Smith&quot;,
+      &quot;product&quot;: &quot;Amazon Echo Dot (4th Generation)&quot;,
+      &quot;vendor&quot;: &quot;Nebula Network Devices&quot;
+    },
+    {
+      &quot;id&quot;: &quot;65be864c96f78f5d6d84ac89&quot;,
+      &quot;rating&quot;: 2,
+      &quot;feedback&quot;: &quot;Duis aute irure dolor.&quot;,
+      &quot;customer&quot;: &quot;Michael Miller&quot;,
+      &quot;product&quot;: &quot;Microsoft Xbox Series X&quot;,
+      &quot;vendor&quot;: &quot;Pinnacle Home Appliances&quot;
+    },
+    {
+      &quot;id&quot;: &quot;65be864c96f78f5d6d84ac88&quot;,
+      &quot;rating&quot;: 1,
+      &quot;feedback&quot;: &quot;In reprehenderit in voluptate velit.&quot;,
+      &quot;customer&quot;: &quot;Jane Smith&quot;,
+      &quot;product&quot;: &quot;Apple MacBook Pro (16 inch, M1 Pro)&quot;,
+      &quot;vendor&quot;: &quot;BlueSky Electronics&quot;
+    },
+    {
+      &quot;id&quot;: &quot;65be864c96f78f5d6d84ac87&quot;,
+      &quot;rating&quot;: 1,
+      &quot;feedback&quot;: &quot;Consectetur adipiscing elit.&quot;,
+      &quot;customer&quot;: null,
+      &quot;product&quot;: &quot;Dyson V11 Torque Drive Cordless Vacuum Cleaner&quot;,
+      &quot;vendor&quot;: &quot;Nebula Network Devices&quot;
+    },
+    {
+      &quot;id&quot;: &quot;65be864c96f78f5d6d84ac86&quot;,
+      &quot;rating&quot;: 3,
+      &quot;feedback&quot;: null,
+      &quot;customer&quot;: &quot;William Martinez&quot;,
+      &quot;product&quot;: &quot;Samsung Galaxy S21&quot;,
+      &quot;vendor&quot;: &quot;BlueSky Electronics&quot;
+    },
+    {
+      &quot;id&quot;: &quot;65be864c96f78f5d6d84ac85&quot;,
+      &quot;rating&quot;: 2,
+      &quot;feedback&quot;: &quot;Duis aute irure dolor.&quot;,
+      &quot;customer&quot;: null,
+      &quot;product&quot;: &quot;Samsung Galaxy S21&quot;,
+      &quot;vendor&quot;: &quot;TerraFirma Outdoor Gear&quot;
+    },
+    {
+      &quot;id&quot;: &quot;65be864c96f78f5d6d84ac84&quot;,
+      &quot;rating&quot;: 5,
+      &quot;feedback&quot;: &quot;Duis aute irure dolor.&quot;,
+      &quot;customer&quot;: null,
+      &quot;product&quot;: &quot;Amazon Echo Dot (4th Generation)&quot;,
+      &quot;vendor&quot;: &quot;Quantum Computing Solutions&quot;
+    },
+    {
+      &quot;id&quot;: &quot;65be864c96f78f5d6d84ac83&quot;,
+      &quot;rating&quot;: 2,
+      &quot;feedback&quot;: &quot;In reprehenderit in voluptate velit.&quot;,
+      &quot;customer&quot;: null,
+      &quot;product&quot;: &quot;Microsoft Xbox Series X&quot;,
+      &quot;vendor&quot;: &quot;Pinnacle Home Appliances&quot;
+    },
+    {
+      &quot;id&quot;: &quot;65be864c96f78f5d6d84ac82&quot;,
+      &quot;rating&quot;: 2,
+      &quot;feedback&quot;: &quot;In reprehenderit in voluptate velit.&quot;,
+      &quot;customer&quot;: &quot;Robert Brown&quot;,
+      &quot;product&quot;: &quot;Samsung Galaxy S21&quot;,
+      &quot;vendor&quot;: &quot;Pinnacle Home Appliances&quot;
+    },
+    {
+      &quot;id&quot;: &quot;65be864c96f78f5d6d84ac81&quot;,
+      &quot;rating&quot;: 1,
+      &quot;feedback&quot;: null,
+      &quot;customer&quot;: null,
+      &quot;product&quot;: &quot;Bose QuietComfort 35 II Headphones&quot;,
+      &quot;vendor&quot;: &quot;Nebula Network Devices&quot;
+    },
+    {
+      &quot;id&quot;: &quot;65be864c96f78f5d6d84ac80&quot;,
+      &quot;rating&quot;: 3,
+      &quot;feedback&quot;: &quot;Nulla pariatur excepteur sint occaecat.&quot;,
+      &quot;customer&quot;: &quot;Jane Smith&quot;,
+      &quot;product&quot;: &quot;Samsung 55\&quot; Class QLED Q80A Series - 4K UHD TV&quot;,
+      &quot;vendor&quot;: &quot;BlueSky Electronics&quot;
+    },
+    {
+      &quot;id&quot;: &quot;65be864c96f78f5d6d84ac7f&quot;,
+      &quot;rating&quot;: 4,
+      &quot;feedback&quot;: &quot;Nulla pariatur excepteur sint occaecat.&quot;,
+      &quot;customer&quot;: &quot;Michael Miller&quot;,
+      &quot;product&quot;: &quot;Microsoft Xbox Series X&quot;,
+      &quot;vendor&quot;: &quot;Quantum Computing Solutions&quot;
+    },
+    {
+      &quot;id&quot;: &quot;65be864c96f78f5d6d84ac7e&quot;,
+      &quot;rating&quot;: 5,
+      &quot;feedback&quot;: &quot;Lorem ipsum dolor sit amet.&quot;,
+      &quot;customer&quot;: &quot;Robert Brown&quot;,
+      &quot;product&quot;: &quot;Apple iPhone 13&quot;,
+      &quot;vendor&quot;: &quot;Quantum Computing Solutions&quot;
+    },
+    {
+      &quot;id&quot;: &quot;65be864c96f78f5d6d84ac7d&quot;,
+      &quot;rating&quot;: 1,
+      &quot;feedback&quot;: &quot;Consectetur adipiscing elit.&quot;,
+      &quot;customer&quot;: &quot;Patricia Davis&quot;,
+      &quot;product&quot;: &quot;Apple iPhone 13&quot;,
+      &quot;vendor&quot;: &quot;Quantum Computing Solutions&quot;
+    }
+  ]
+}
 	at org.junit.Assert.fail(Assert.java:89)
 	at org.hyperskill.hstest.stage.StageTest.start(StageTest.java:203)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
@@ -66,43 +193,73 @@ Start test 1?[0m
 ?[0m?[0;34m =========|_|==============|___/=/_/_/_/
 ?[0m?[0;34m :: Spring Boot ::                (v3.0.2)
 ?[0m?[0;34m
-?[0m?[0;34m2024-02-03T10:05:38.927+05:00  INFO 17336 --- [    Test worker] feedbackservice.FeedbackApplication      : Starting FeedbackApplication using Java 17.0.9 with PID 17336 (started by User in D:\JetBrainsWork\Customer Feedback Service\Customer Feedback Service\task)
-?[0m?[0;34m2024-02-03T10:05:38.934+05:00  INFO 17336 --- [    Test worker] feedbackservice.FeedbackApplication      : No active profile set, falling back to 1 default profile: "default"
-?[0m?[0;34m2024-02-03T10:05:40.622+05:00  INFO 17336 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data MongoDB repositories in DEFAULT mode.
-?[0m?[0;34m2024-02-03T10:05:40.733+05:00  INFO 17336 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 101 ms. Found 1 MongoDB repository interfaces.
-?[0m?[0;34m2024-02-03T10:05:41.689+05:00  INFO 17336 --- [    Test worker] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
-?[0m?[0;34m2024-02-03T10:05:41.713+05:00  INFO 17336 --- [    Test worker] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-?[0m?[0;34m2024-02-03T10:05:41.714+05:00  INFO 17336 --- [    Test worker] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.5]
-?[0m?[0;34m2024-02-03T10:05:41.956+05:00  INFO 17336 --- [    Test worker] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-?[0m?[0;34m2024-02-03T10:05:41.961+05:00  INFO 17336 --- [    Test worker] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2950 ms
-?[0m?[0;34m2024-02-03T10:05:42.709+05:00  INFO 17336 --- [    Test worker] org.mongodb.driver.client                : MongoClient with metadata {"driver": {"name": "mongo-java-driver|sync|spring-boot", "version": "4.8.2"}, "os": {"type": "Windows", "name": "Windows 10", "architecture": "amd64", "version": "10.0"}, "platform": "Java/JetBrains s.r.o./17.0.9+7-b1087.9"} created with settings MongoClientSettings{readPreference=primary, writeConcern=WriteConcern{w=null, wTimeout=null ms, journal=null}, retryWrites=true, retryReads=true, readConcern=ReadConcern{level=null}, credential=null, streamFactoryFactory=null, commandListeners=[io.micrometer.core.instrument.binder.mongodb.MongoMetricsCommandListener@582dcd35], codecRegistry=ProvidersCodecRegistry{codecProviders=[ValueCodecProvider{}, BsonValueCodecProvider{}, DBRefCodecProvider{}, DBObjectCodecProvider{}, DocumentCodecProvider{}, CollectionCodecProvider{}, IterableCodecProvider{}, MapCodecProvider{}, GeoJsonCodecProvider{}, GridFSFileCodecProvider{}, Jsr310CodecProvider{}, JsonObjectCodecProvider{}, BsonCodecProvider{}, EnumCodecProvider{}, com.mongodb.Jep395RecordCodecProvider@1e6bd263]}, clusterSettings={hosts=[localhost:27017], srvServiceName=mongodb, mode=SINGLE, requiredClusterType=UNKNOWN, requiredReplicaSetName='null', serverSelector='null', clusterListeners='[]', serverSelectionTimeout='30000 ms', localThreshold='30000 ms'}, socketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=0, receiveBufferSize=0, sendBufferSize=0}, heartbeatSocketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=10000, receiveBufferSize=0, sendBufferSize=0}, connectionPoolSettings=ConnectionPoolSettings{maxSize=100, minSize=0, maxWaitTimeMS=120000, maxConnectionLifeTimeMS=0, maxConnectionIdleTimeMS=0, maintenanceInitialDelayMS=0, maintenanceFrequencyMS=60000, connectionPoolListeners=[io.micrometer.core.instrument.binder.mongodb.MongoMetricsConnectionPoolListener@394a6d2b], maxConnecting=2}, serverSettings=ServerSettings{heartbeatFrequencyMS=10000, minHeartbeatFrequencyMS=500, serverListeners='[]', serverMonitorListeners='[]'}, sslSettings=SslSettings{enabled=false, invalidHostNameAllowed=false, context=null}, applicationName='null', compressorList=[], uuidRepresentation=JAVA_LEGACY, serverApi=null, autoEncryptionSettings=null, contextProvider=null}
-?[0;34m2024-02-03T10:05:42.736+05:00  INFO 17336 --- [localhost:27017] org.mongodb.driver.cluster               : Monitor thread successfully connected to server with description ServerDescription{address=localhost:27017, type=STANDALONE, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=21, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=38885100}
-?[0m?[0;34m2024-02-03T10:05:43.511+05:00  INFO 17336 --- [    Test worker] o.t.utility.ImageNameSubstitutor         : Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
-?[0m?[0;34m2024-02-03T10:05:43.557+05:00  INFO 17336 --- [    Test worker] o.t.d.DockerClientProviderStrategy       : Loaded org.testcontainers.dockerclient.NpipeSocketClientProviderStrategy from ~/.testcontainers.properties, will try it first
-?[0m?[0;34m2024-02-03T10:05:44.376+05:00  INFO 17336 --- [    Test worker] o.t.d.DockerClientProviderStrategy       : Found Docker environment with local Npipe socket (npipe:////./pipe/docker_engine)
-?[0m?[0;34m2024-02-03T10:05:44.382+05:00  INFO 17336 --- [    Test worker] org.testcontainers.DockerClientFactory   : Docker host IP address is localhost
-?[0m?[0;34m2024-02-03T10:05:44.455+05:00  INFO 17336 --- [    Test worker] org.testcontainers.DockerClientFactory   : Connected to docker: 
+?[0m?[0;34m2024-02-03T23:29:59.602+05:00  INFO 13680 --- [    Test worker] feedbackservice.FeedbackApplication      : Starting FeedbackApplication using Java 17.0.9 with PID 13680 (started by User in D:\JetBrainsWork\Customer Feedback Service\Customer Feedback Service\task)
+?[0m?[0;34m2024-02-03T23:29:59.608+05:00  INFO 13680 --- [    Test worker] feedbackservice.FeedbackApplication      : No active profile set, falling back to 1 default profile: "default"
+?[0m?[0;34m2024-02-03T23:30:01.482+05:00  INFO 13680 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data MongoDB repositories in DEFAULT mode.
+?[0m?[0;34m2024-02-03T23:30:01.595+05:00  INFO 13680 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 102 ms. Found 1 MongoDB repository interfaces.
+?[0m?[0;34m2024-02-03T23:30:02.532+05:00  INFO 13680 --- [    Test worker] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+?[0m?[0;34m2024-02-03T23:30:02.552+05:00  INFO 13680 --- [    Test worker] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+?[0m?[0;34m2024-02-03T23:30:02.553+05:00  INFO 13680 --- [    Test worker] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.5]
+?[0m?[0;34m2024-02-03T23:30:02.705+05:00  INFO 13680 --- [    Test worker] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+?[0m?[0;34m2024-02-03T23:30:02.709+05:00  INFO 13680 --- [    Test worker] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 3016 ms
+?[0m?[0;34m2024-02-03T23:30:03.282+05:00  INFO 13680 --- [    Test worker] org.mongodb.driver.client                : MongoClient with metadata {"driver": {"name": "mongo-java-driver|sync|spring-boot", "version": "4.8.2"}, "os": {"type": "Windows", "name": "Windows 10", "architecture": "amd64", "version": "10.0"}, "platform": "Java/JetBrains s.r.o./17.0.9+7-b1087.9"} created with settings MongoClientSettings{readPreference=primary, writeConcern=WriteConcern{w=null, wTimeout=null ms, journal=null}, retryWrites=true, retryReads=true, readConcern=ReadConcern{level=null}, credential=null, streamFactoryFactory=null, commandListeners=[io.micrometer.core.instrument.binder.mongodb.MongoMetricsCommandListener@4ef5dd23], codecRegistry=ProvidersCodecRegistry{codecProviders=[ValueCodecProvider{}, BsonValueCodecProvider{}, DBRefCodecProvider{}, DBObjectCodecProvider{}, DocumentCodecProvider{}, CollectionCodecProvider{}, IterableCodecProvider{}, MapCodecProvider{}, GeoJsonCodecProvider{}, GridFSFileCodecProvider{}, Jsr310CodecProvider{}, JsonObjectCodecProvider{}, BsonCodecProvider{}, EnumCodecProvider{}, com.mongodb.Jep395RecordCodecProvider@163e8949]}, clusterSettings={hosts=[localhost:27017], srvServiceName=mongodb, mode=SINGLE, requiredClusterType=UNKNOWN, requiredReplicaSetName='null', serverSelector='null', clusterListeners='[]', serverSelectionTimeout='30000 ms', localThreshold='30000 ms'}, socketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=0, receiveBufferSize=0, sendBufferSize=0}, heartbeatSocketSettings=SocketSettings{connectTimeoutMS=10000, readTimeoutMS=10000, receiveBufferSize=0, sendBufferSize=0}, connectionPoolSettings=ConnectionPoolSettings{maxSize=100, minSize=0, maxWaitTimeMS=120000, maxConnectionLifeTimeMS=0, maxConnectionIdleTimeMS=0, maintenanceInitialDelayMS=0, maintenanceFrequencyMS=60000, connectionPoolListeners=[io.micrometer.core.instrument.binder.mongodb.MongoMetricsConnectionPoolListener@6eede35e], maxConnecting=2}, serverSettings=ServerSettings{heartbeatFrequencyMS=10000, minHeartbeatFrequencyMS=500, serverListeners='[]', serverMonitorListeners='[]'}, sslSettings=SslSettings{enabled=false, invalidHostNameAllowed=false, context=null}, applicationName='null', compressorList=[], uuidRepresentation=JAVA_LEGACY, serverApi=null, autoEncryptionSettings=null, contextProvider=null}
+?[0;34m2024-02-03T23:30:03.310+05:00  INFO 13680 --- [localhost:27017] org.mongodb.driver.cluster               : Monitor thread successfully connected to server with description ServerDescription{address=localhost:27017, type=STANDALONE, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=21, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=45549000}
+?[0m?[0;34m2024-02-03T23:30:04.025+05:00  INFO 13680 --- [    Test worker] o.t.utility.ImageNameSubstitutor         : Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
+?[0m?[0;34m2024-02-03T23:30:04.071+05:00  INFO 13680 --- [    Test worker] o.t.d.DockerClientProviderStrategy       : Loaded org.testcontainers.dockerclient.NpipeSocketClientProviderStrategy from ~/.testcontainers.properties, will try it first
+?[0m?[0;34m2024-02-03T23:30:04.911+05:00  INFO 13680 --- [    Test worker] o.t.d.DockerClientProviderStrategy       : Found Docker environment with local Npipe socket (npipe:////./pipe/docker_engine)
+?[0m?[0;34m2024-02-03T23:30:04.914+05:00  INFO 13680 --- [    Test worker] org.testcontainers.DockerClientFactory   : Docker host IP address is localhost
+?[0m?[0;34m2024-02-03T23:30:04.935+05:00  INFO 13680 --- [    Test worker] org.testcontainers.DockerClientFactory   : Connected to docker: 
 ?[0m?[0;34m  Server Version: 24.0.7
 ?[0m?[0;34m  API Version: 1.43
 ?[0m?[0;34m  Operating System: Docker Desktop
 ?[0m?[0;34m  Total Memory: 7902 MB
-?[0m?[0;34m2024-02-03T10:05:44.506+05:00  INFO 17336 --- [    Test worker] ]]>&#x1f433;<![CDATA[ [testcontainers/ryuk:0.3.4]           : Creating container for image: testcontainers/ryuk:0.3.4
-?[0m?[0;34m2024-02-03T10:05:47.392+05:00  INFO 17336 --- [    Test worker] ]]>&#x1f433;<![CDATA[ [testcontainers/ryuk:0.3.4]           : Container testcontainers/ryuk:0.3.4 is starting: e7933e95a3eae3ec8cdfa0ae5075a7e4ecb2cbb6d4617ee598bd8648920886c2
-?[0m?[0;34m2024-02-03T10:05:49.639+05:00  INFO 17336 --- [    Test worker] ]]>&#x1f433;<![CDATA[ [testcontainers/ryuk:0.3.4]           : Container testcontainers/ryuk:0.3.4 started in PT5.1677066S
-?[0m?[0;34m2024-02-03T10:05:49.649+05:00  INFO 17336 --- [    Test worker] o.t.utility.RyukResourceReaper           : Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
-?[0m?[0;34m2024-02-03T10:05:49.649+05:00  INFO 17336 --- [    Test worker] org.testcontainers.DockerClientFactory   : Checking the system...
-?[0m?[0;34m2024-02-03T10:05:49.651+05:00  INFO 17336 --- [    Test worker] org.testcontainers.DockerClientFactory   : ✔︎ Docker server version should be at least 1.6.0
-?[0m?[0;34m2024-02-03T10:05:49.652+05:00  INFO 17336 --- [    Test worker] ]]>&#x1f433;<![CDATA[ [mongo:5.0.24-focal]                  : Creating container for image: mongo:5.0.24-focal
-?[0m?[0;34m2024-02-03T10:05:52.957+05:00  INFO 17336 --- [    Test worker] ]]>&#x1f433;<![CDATA[ [mongo:5.0.24-focal]                  : Container mongo:5.0.24-focal is starting: 4f82ac60f63fcc73a74ffeebcaebcb540d42ab65a18537dec8e5fae5fada522d
-?[0m?[0;34m2024-02-03T10:06:02.877+05:00  INFO 17336 --- [    Test worker] ]]>&#x1f433;<![CDATA[ [mongo:5.0.24-focal]                  : Container mongo:5.0.24-focal started in PT13.2252205S
-?[0m?[0;34m2024-02-03T10:06:20.419+05:00  INFO 17336 --- [    Test worker] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint(s) beneath base path '/actuator'
-?[0m?[0;34m2024-02-03T10:06:20.523+05:00  INFO 17336 --- [    Test worker] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
-?[0m?[0;34m2024-02-03T10:06:20.552+05:00  INFO 17336 --- [    Test worker] feedbackservice.FeedbackApplication      : Started FeedbackApplication in 42.429 seconds (process running for 44.064)
-?[0;34m2024-02-03T10:06:21.117+05:00  INFO 17336 --- [nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-?[0m?[0;34m2024-02-03T10:06:21.118+05:00  INFO 17336 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-?[0m?[0;34m2024-02-03T10:06:21.121+05:00  INFO 17336 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+?[0m?[0;34m2024-02-03T23:30:04.959+05:00  INFO 13680 --- [    Test worker] ]]>&#x1f433;<![CDATA[ [testcontainers/ryuk:0.3.4]           : Creating container for image: testcontainers/ryuk:0.3.4
+?[0m?[0;34m2024-02-03T23:30:09.348+05:00  INFO 13680 --- [    Test worker] ]]>&#x1f433;<![CDATA[ [testcontainers/ryuk:0.3.4]           : Container testcontainers/ryuk:0.3.4 is starting: 9a6493fc9fa5703832655d254a03ef197631b10b9005d3e95e23ce71c013f7c4
+?[0m?[0;34m2024-02-03T23:30:11.514+05:00  INFO 13680 --- [    Test worker] ]]>&#x1f433;<![CDATA[ [testcontainers/ryuk:0.3.4]           : Container testcontainers/ryuk:0.3.4 started in PT6.5678074S
+?[0m?[0;34m2024-02-03T23:30:11.533+05:00  INFO 13680 --- [    Test worker] o.t.utility.RyukResourceReaper           : Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
+?[0m?[0;34m2024-02-03T23:30:11.535+05:00  INFO 13680 --- [    Test worker] org.testcontainers.DockerClientFactory   : Checking the system...
+?[0m?[0;34m2024-02-03T23:30:11.537+05:00  INFO 13680 --- [    Test worker] org.testcontainers.DockerClientFactory   : ✔︎ Docker server version should be at least 1.6.0
+?[0m?[0;34m2024-02-03T23:30:11.540+05:00  INFO 13680 --- [    Test worker] ]]>&#x1f433;<![CDATA[ [mongo:5.0.24-focal]                  : Creating container for image: mongo:5.0.24-focal
+?[0m?[0;34m2024-02-03T23:30:15.464+05:00  INFO 13680 --- [    Test worker] ]]>&#x1f433;<![CDATA[ [mongo:5.0.24-focal]                  : Container mongo:5.0.24-focal is starting: 81bb1be246cd42a41555b9c79748eb3e7a1dd0d2022edcadab77ede362f21de7
+?[0m?[0;34m2024-02-03T23:30:24.431+05:00  INFO 13680 --- [    Test worker] ]]>&#x1f433;<![CDATA[ [mongo:5.0.24-focal]                  : Container mongo:5.0.24-focal started in PT12.8922509S
+?[0m?[0;34m2024-02-03T23:30:34.771+05:00  INFO 13680 --- [    Test worker] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint(s) beneath base path '/actuator'
+?[0m?[0;34m2024-02-03T23:30:34.880+05:00  INFO 13680 --- [    Test worker] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+?[0m?[0;34m2024-02-03T23:30:34.911+05:00  INFO 13680 --- [    Test worker] feedbackservice.FeedbackApplication      : Started FeedbackApplication in 36.025 seconds (process running for 37.506)
+?[0;34m2024-02-03T23:30:35.474+05:00  INFO 13680 --- [nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+?[0m?[0;34m2024-02-03T23:30:35.475+05:00  INFO 13680 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+?[0m?[0;34m2024-02-03T23:30:35.480+05:00  INFO 13680 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 4 ms
 ?[0m?[1;31m
 Start test 2?[0m
+?[1;31m
+Start test 3?[0m
+?[1;31m
+Start test 4?[0m
+?[1;31m
+Start test 5?[0m
+?[1;31m
+Start test 6?[0m
+?[1;31m
+Start test 7?[0m
+?[1;31m
+Start test 8?[0m
+?[1;31m
+Start test 9?[0m
+?[1;31m
+Start test 10?[0m
+?[1;31m
+Start test 11?[0m
+?[1;31m
+Start test 12?[0m
+?[1;31m
+Start test 13?[0m
+?[1;31m
+Start test 14?[0m
+?[1;31m
+Start test 15?[0m
+?[1;31m
+Start test 16?[0m
+?[1;31m
+Start test 17?[0m
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

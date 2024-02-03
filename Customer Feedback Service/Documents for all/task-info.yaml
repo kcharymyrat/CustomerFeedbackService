@@ -524,9 +524,9 @@ files:
       
       }
     learner_created: true
-feedback_link: https://hyperskill.org/projects/409/stages/2396/implement#comment
-status: Failed
+feedback_link: https://hyperskill.org/learn/step/38847#comment
+status: Solved
 feedback:
-  message: Execution failed
-  time: "Sat, 03 Feb 2024 05:06:27 UTC"
-record: -1
+  message: Congratulations!
+  time: "Sat, 03 Feb 2024 06:07:48 UTC"
+record: 2

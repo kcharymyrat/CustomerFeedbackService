@@ -1,14 +1,12 @@
 package feedbackservice;
 
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 
@@ -28,6 +26,46 @@ public class FeedbackController {
         URI location = URI.create(String.format("/feedback/%s", savedFeedback.getId()));
 
         return ResponseEntity.created(location).build();
+    }
+
+
+    @GetMapping(path="/feedback", produces = "application/json")
+    public ResponseEntity<FeedbackPaginatedResponse> getFeedbackList(
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "10") int perPage,
+            @RequestParam(required = false) Integer rating,
+            @RequestParam(required = false) String customer,
+            @RequestParam(required = false) String product,
+            @RequestParam(required = false) String vendor
+    ) {
+
+        page = Math.max(page, 1);
+        if (perPage < 5 || perPage > 20) {
+            perPage = 10;
+        }
+
+        Sort sort = Sort.by(Sort.Order.desc("id"));
+        Pageable pageable = PageRequest.of(page - 1, perPage, sort);
+
+        Page<Feedback> feedbackPage = repository.findAll(pageable);
+        FeedbackPaginatedResponse response = new FeedbackPaginatedResponse(
+                feedbackPage.getTotalElements(),
+                feedbackPage.isFirst(),
+                feedbackPage.isLast(),
+                feedbackPage.getContent()
+        );
+
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping(path ="/feedback/{id}", produces = "application/json")
+    public ResponseEntity<Feedback> getFeedback(@PathVariable String id) {
+        var feedback = repository.findById(id);
+        if (feedback.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.of(feedback);
     }
 
 }

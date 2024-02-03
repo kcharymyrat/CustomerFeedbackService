@@ -506,6 +506,364 @@ files:
           }
       }
     learner_created: false
-feedback_link: https://hyperskill.org/projects/409/stages/2398/implement#comment
-status: Unchecked
+  - name: src/feedbackservice/Feedback.java
+    visible: true
+    text: |-
+      package feedbackservice;
+      
+      
+      import org.springframework.data.annotation.Id;
+      import org.springframework.data.mongodb.core.mapping.Document;
+      
+      @Document(collection = "feedback")
+      public class Feedback {
+          @Id
+          private String id;
+          private Integer rating;
+          private String feedback; // Optional, can be null
+          private String customer; // Optional, can be null
+          private String product;
+          private String vendor;
+      
+          public Feedback() {
+          }
+      
+          public Feedback(String id, Integer rating, String feedback, String customer, String product, String vendor) {
+              this.id = id;
+              this.rating = rating;
+              this.feedback = feedback;
+              this.customer = customer;
+              this.product = product;
+              this.vendor = vendor;
+          }
+      
+          public String getId() {
+              return id;
+          }
+      
+          public void setId(String id) {
+              this.id = id;
+          }
+      
+          public Integer getRating() {
+              return rating;
+          }
+      
+          public void setRating(Integer rating) {
+              this.rating = rating;
+          }
+      
+          public String getFeedback() {
+              return feedback;
+          }
+      
+          public void setFeedback(String feedback) {
+              this.feedback = feedback;
+          }
+      
+          public String getCustomer() {
+              return customer;
+          }
+      
+          public void setCustomer(String customer) {
+              this.customer = customer;
+          }
+      
+          public String getProduct() {
+              return product;
+          }
+      
+          public void setProduct(String product) {
+              this.product = product;
+          }
+      
+          public String getVendor() {
+              return vendor;
+          }
+      
+          public void setVendor(String vendor) {
+              this.vendor = vendor;
+          }
+      }
+    learner_created: true
+  - name: src/feedbackservice/FeedbackPaginatedResponse.java
+    visible: true
+    text: |-
+      package feedbackservice;
+      
+      import com.fasterxml.jackson.annotation.JsonProperty;
+      
+      import java.util.List;
+      
+      public class FeedbackPaginatedResponse {
+          @JsonProperty("total_documents")
+          private long totalDocuments;
+      
+          @JsonProperty("is_first_page")
+          private boolean isFirstPage;
+      
+          @JsonProperty("is_last_page")
+          private boolean isLastPage;
+      
+          @JsonProperty("documents")
+          private List<Feedback> documents;
+      
+          public FeedbackPaginatedResponse(long totalDocuments, boolean isFirstPage, boolean isLastPage, List<Feedback> documents) {
+              this.totalDocuments = totalDocuments;
+              this.isFirstPage = isFirstPage;
+              this.isLastPage = isLastPage;
+              this.documents = documents;
+          }
+      }
+    learner_created: true
+  - name: src/feedbackservice/FeedbackRepository.java
+    visible: true
+    text: |
+      package feedbackservice;
+      
+      import org.springframework.data.mongodb.repository.MongoRepository;
+      
+      public interface FeedbackRepository extends MongoRepository<Feedback, String> {
+      }
+    learner_created: true
+  - name: src/feedbackservice/MongoContainerProvider.java
+    visible: true
+    text: |-
+      package feedbackservice;
+      
+      import jakarta.annotation.PreDestroy;
+      import org.springframework.beans.factory.annotation.Value;
+      import org.springframework.stereotype.Component;
+      import org.testcontainers.containers.MongoDBContainer;
+      
+      import java.util.List;
+      
+      @Component
+      class MongoContainerProvider {
+          private final MongoDBContainer container;
+      
+          public MongoContainerProvider(@Value("${mongodb.image}") String mongodbImage) {
+              try {
+                  container = new MongoDBContainer(mongodbImage); // image name
+                  container.withCreateContainerCmdModifier(cmd -> cmd.withName("feedback-service")); // container name
+                  container.addEnv("MONGO_INITDB_DATABASE", "feedback_db"); // init database
+                  container.setPortBindings(List.of("27017:27017")); // expose port 27017
+                  container.start();
+              } catch (Exception e) {
+                  System.err.println("Failed to start MongoDB container: " + e.getMessage());
+                  throw e;
+              }
+          }
+      
+          @PreDestroy
+          public void tearDown() {
+              container.stop();
+          }
+      }
+    learner_created: true
+  - name: src/feedbackservice/FeedbackController.java
+    visible: true
+    text: |
+      package feedbackservice;
+      
+      import org.springframework.beans.factory.annotation.Autowired;
+      import org.springframework.data.domain.Page;
+      import org.springframework.data.domain.PageRequest;
+      import org.springframework.data.domain.Pageable;
+      import org.springframework.data.domain.Sort;
+      import org.springframework.http.ResponseEntity;
+      import org.springframework.web.bind.annotation.*;
+      
+      import java.net.URI;
+      
+      @RestController
+      public class FeedbackController {
+          private final FeedbackRepository repository;
+      
+          @Autowired
+          public FeedbackController(FeedbackRepository repository) {
+              this.repository = repository;
+              this.repository.deleteAll();
+          }
+      
+          @PostMapping(path = "/feedback")
+          public ResponseEntity<Void> createFeedback(@RequestBody Feedback feedback) {
+              Feedback savedFeedback = repository.save(feedback);
+              URI location = URI.create(String.format("/feedback/%s", savedFeedback.getId()));
+      
+              return ResponseEntity.created(location).build();
+          }
+      
+      
+          @GetMapping(path="/feedback", produces = "application/json")
+          public ResponseEntity<FeedbackPaginatedResponse> getFeedbackList(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "10") int perPage) {
+      
+              page = Math.max(page, 1);
+              if (perPage < 5 || perPage > 20) {
+                  perPage = 10;
+              }
+      
+              Sort sort = Sort.by(Sort.Order.desc("id"));
+              Pageable pageable = PageRequest.of(page - 1, perPage, sort);
+      
+              Page<Feedback> feedbackPage = repository.findAll(pageable);
+              FeedbackPaginatedResponse response = new FeedbackPaginatedResponse(
+                      feedbackPage.getTotalElements(),
+                      feedbackPage.isFirst(),
+                      feedbackPage.isLast(),
+                      feedbackPage.getContent()
+              );
+      
+              return ResponseEntity.ok(response);
+          }
+      
+          @GetMapping(path ="/feedback/{id}", produces = "application/json")
+          public ResponseEntity<Feedback> getFeedback(@PathVariable String id) {
+              var feedback = repository.findById(id);
+              if (feedback.isEmpty()) {
+                  return ResponseEntity.notFound().build();
+              }
+      
+              return ResponseEntity.of(feedback);
+          }
+      
+      }
+    learner_created: true
+feedback_link: https://hyperskill.org/learn/step/38849#comment
+status: Failed
+feedback:
+  message: |-
+    Wrong answer in test #17
+
+    The JSON object at key total_documents should equal to 4, found 51
+
+    Full JSON:
+    {
+      &quot;total_documents&quot;: 51,
+      &quot;is_first_page&quot;: false,
+      &quot;is_last_page&quot;: false,
+      &quot;documents&quot;: [
+        {
+          &quot;id&quot;: &quot;65be864c96f78f5d6d84ac8b&quot;,
+          &quot;rating&quot;: 4,
+          &quot;feedback&quot;: &quot;Consectetur adipiscing elit.&quot;,
+          &quot;customer&quot;: &quot;Elizabeth Garcia&quot;,
+          &quot;product&quot;: &quot;Samsung 55\&quot; Class QLED Q80A Series - 4K UHD TV&quot;,
+          &quot;vendor&quot;: &quot;BlueSky Electronics&quot;
+        },
+        {
+          &quot;id&quot;: &quot;65be864c96f78f5d6d84ac8a&quot;,
+          &quot;rating&quot;: 4,
+          &quot;feedback&quot;: null,
+          &quot;customer&quot;: &quot;Jane Smith&quot;,
+          &quot;product&quot;: &quot;Amazon Echo Dot (4th Generation)&quot;,
+          &quot;vendor&quot;: &quot;Nebula Network Devices&quot;
+        },
+        {
+          &quot;id&quot;: &quot;65be864c96f78f5d6d84ac89&quot;,
+          &quot;rating&quot;: 2,
+          &quot;feedback&quot;: &quot;Duis aute irure dolor.&quot;,
+          &quot;customer&quot;: &quot;Michael Miller&quot;,
+          &quot;product&quot;: &quot;Microsoft Xbox Series X&quot;,
+          &quot;vendor&quot;: &quot;Pinnacle Home Appliances&quot;
+        },
+        {
+          &quot;id&quot;: &quot;65be864c96f78f5d6d84ac88&quot;,
+          &quot;rating&quot;: 1,
+          &quot;feedback&quot;: &quot;In reprehenderit in voluptate velit.&quot;,
+          &quot;customer&quot;: &quot;Jane Smith&quot;,
+          &quot;product&quot;: &quot;Apple MacBook Pro (16 inch, M1 Pro)&quot;,
+          &quot;vendor&quot;: &quot;BlueSky Electronics&quot;
+        },
+        {
+          &quot;id&quot;: &quot;65be864c96f78f5d6d84ac87&quot;,
+          &quot;rating&quot;: 1,
+          &quot;feedback&quot;: &quot;Consectetur adipiscing elit.&quot;,
+          &quot;customer&quot;: null,
+          &quot;product&quot;: &quot;Dyson V11 Torque Drive Cordless Vacuum Cleaner&quot;,
+          &quot;vendor&quot;: &quot;Nebula Network Devices&quot;
+        },
+        {
+          &quot;id&quot;: &quot;65be864c96f78f5d6d84ac86&quot;,
+          &quot;rating&quot;: 3,
+          &quot;feedback&quot;: null,
+          &quot;customer&quot;: &quot;William Martinez&quot;,
+          &quot;product&quot;: &quot;Samsung Galaxy S21&quot;,
+          &quot;vendor&quot;: &quot;BlueSky Electronics&quot;
+        },
+        {
+          &quot;id&quot;: &quot;65be864c96f78f5d6d84ac85&quot;,
+          &quot;rating&quot;: 2,
+          &quot;feedback&quot;: &quot;Duis aute irure dolor.&quot;,
+          &quot;customer&quot;: null,
+          &quot;product&quot;: &quot;Samsung Galaxy S21&quot;,
+          &quot;vendor&quot;: &quot;TerraFirma Outdoor Gear&quot;
+        },
+        {
+          &quot;id&quot;: &quot;65be864c96f78f5d6d84ac84&quot;,
+          &quot;rating&quot;: 5,
+          &quot;feedback&quot;: &quot;Duis aute irure dolor.&quot;,
+          &quot;customer&quot;: null,
+          &quot;product&quot;: &quot;Amazon Echo Dot (4th Generation)&quot;,
+          &quot;vendor&quot;: &quot;Quantum Computing Solutions&quot;
+        },
+        {
+          &quot;id&quot;: &quot;65be864c96f78f5d6d84ac83&quot;,
+          &quot;rating&quot;: 2,
+          &quot;feedback&quot;: &quot;In reprehenderit in voluptate velit.&quot;,
+          &quot;customer&quot;: null,
+          &quot;product&quot;: &quot;Microsoft Xbox Series X&quot;,
+          &quot;vendor&quot;: &quot;Pinnacle Home Appliances&quot;
+        },
+        {
+          &quot;id&quot;: &quot;65be864c96f78f5d6d84ac82&quot;,
+          &quot;rating&quot;: 2,
+          &quot;feedback&quot;: &quot;In reprehenderit in voluptate velit.&quot;,
+          &quot;customer&quot;: &quot;Robert Brown&quot;,
+          &quot;product&quot;: &quot;Samsung Galaxy S21&quot;,
+          &quot;vendor&quot;: &quot;Pinnacle Home Appliances&quot;
+        },
+        {
+          &quot;id&quot;: &quot;65be864c96f78f5d6d84ac81&quot;,
+          &quot;rating&quot;: 1,
+          &quot;feedback&quot;: null,
+          &quot;customer&quot;: null,
+          &quot;product&quot;: &quot;Bose QuietComfort 35 II Headphones&quot;,
+          &quot;vendor&quot;: &quot;Nebula Network Devices&quot;
+        },
+        {
+          &quot;id&quot;: &quot;65be864c96f78f5d6d84ac80&quot;,
+          &quot;rating&quot;: 3,
+          &quot;feedback&quot;: &quot;Nulla pariatur excepteur sint occaecat.&quot;,
+          &quot;customer&quot;: &quot;Jane Smith&quot;,
+          &quot;product&quot;: &quot;Samsung 55\&quot; Class QLED Q80A Series - 4K UHD TV&quot;,
+          &quot;vendor&quot;: &quot;BlueSky Electronics&quot;
+        },
+        {
+          &quot;id&quot;: &quot;65be864c96f78f5d6d84ac7f&quot;,
+          &quot;rating&quot;: 4,
+          &quot;feedback&quot;: &quot;Nulla pariatur excepteur sint occaecat.&quot;,
+          &quot;customer&quot;: &quot;Michael Miller&quot;,
+          &quot;product&quot;: &quot;Microsoft Xbox Series X&quot;,
+          &quot;vendor&quot;: &quot;Quantum Computing Solutions&quot;
+        },
+        {
+          &quot;id&quot;: &quot;65be864c96f78f5d6d84ac7e&quot;,
+          &quot;rating&quot;: 5,
+          &quot;feedback&quot;: &quot;Lorem ipsum dolor sit amet.&quot;,
+          &quot;customer&quot;: &quot;Robert Brown&quot;,
+          &quot;product&quot;: &quot;Apple iPhone 13&quot;,
+          &quot;vendor&quot;: &quot;Quantum Computing Solutions&quot;
+        },
+        {
+          &quot;id&quot;: &quot;65be864c96f78f5d6d84ac7d&quot;,
+          &quot;rating&quot;: 1,
+          &quot;feedback&quot;: &quot;Consectetur adipiscing elit.&quot;,
+          &quot;customer&quot;: &quot;Patricia Davis&quot;,
+          &quot;product&quot;: &quot;Apple iPhone 13&quot;,
+          &quot;vendor&quot;: &quot;Quantum Computing Solutions&quot;
+        }
+      ]
+    }
+  time: "Sat, 03 Feb 2024 18:30:43 UTC"
 record: -1
